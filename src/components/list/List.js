@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './List.css';
 
-import { Link } from "react-router-dom";
-
 import PokemonListService from "../../services/PokemonListService";
+import PokeCard from "./details/Details";
 
 function List() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -12,7 +11,7 @@ function List() {
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleScroll() {
+  const handleScroll = () => {
     const scrollTop = (document.documentElement
       && document.documentElement.scrollTop)
       || document.body.scrollTop;
@@ -61,12 +60,7 @@ function List() {
                 {
                   pokemonList.length > 0 && pokemonList.map((pokemon, key) => {
                     return (
-                      <div className="card" key={key}>
-                        <img src={`${process.env.PUBLIC_URL}/sprites/${key + 1}.png`} className="card-img-top" alt="..." />
-                        <div className="card-body text-center">
-                          <Link to="/" className="btn btn-primary w-100">{pokemon.name}</Link>
-                        </div>
-                      </div>
+                      <PokeCard key={key} name={pokemon.name} index={key} />
                     );
                   })
                 }
