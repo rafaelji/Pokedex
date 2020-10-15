@@ -9,7 +9,7 @@ function AbilityList(props) {
         {
           props.pokemon.abilities && props.pokemon.abilities.map((item, index) => {
             return (
-              <Ability index={index} item={item} key={index} />
+              <Ability index={item.ability.url.substr(34,2)} item={item} key={index} />
             );
           })
         }

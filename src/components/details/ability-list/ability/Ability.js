@@ -1,6 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import GetAbilityService from "../../../../services/GetAbilityService";
+import {Link} from "react-router-dom";
 
 function Ability(props) {
+  const [ability, setAbility] = useState({});
+
+  useEffect(() => {
+    async function getAbilityDetails() {
+      const result = await GetAbilityService.get(props.index);
+      setAbility(result);
+    }
+
+    getAbilityDetails();
+  }, []);
+
   return(
     <div className="card" key={props.index}>
       <div className="card-header" id={'headingOne' + props.index}>
@@ -15,13 +28,10 @@ function Ability(props) {
       <div id={"collapseOne" + props.index} className={props.index > 0 ? "collapse" : "collapse show"} aria-labelledby={'headingOne' + props.index}
            data-parent="#accordion">
         <div className="card-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-          3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-          laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-          coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-          anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-          of them accusamus labore sustainable VHS.
+          <p><strong>Effect Changes:</strong> {ability && ability.effect_entries && ability.effect_changes.length > 0 ? ability.effect_entries[1].effect : 'None'}</p>
+          <p><strong>Effect Entries:</strong> {ability && ability.effect_entries && ability.effect_entries.length > 0 ? ability.effect_entries[1].effect : 'None'}</p>
+          <p><strong>Generation:</strong> {ability && ability.generation ? ability.generation.name.substr(11).toUpperCase() : 'None'}</p>
+          <p><strong>Present on main series:</strong> {ability && ability.is_main_series ? 'Yes' : 'No'}</p>
         </div>
       </div>
     </div>
