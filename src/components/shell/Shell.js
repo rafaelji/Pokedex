@@ -11,6 +11,7 @@ import './Shell.css';
 
 import List from "../list/List";
 import About from "../about/About";
+import Details from "../details/Details";
 
 function Shell() {
   const match = useRouteMatch();
@@ -42,6 +43,7 @@ function Shell() {
       <Switch>
         <Route exact path={match.path} component={() => <Redirect to={`${match.path}/pokedex`} />} />
         <Route exact path={`${match.path}/pokedex`} component={List} />
+        <Route exact path={`${match.path}/pokedex/:id`} component={Details} />
         <Route path={`${match.path}/about`} component={About} />
       </Switch>
     </div>
