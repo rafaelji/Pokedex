@@ -12,6 +12,7 @@ import './Shell.css';
 import List from "../list/List";
 import About from "../about/About";
 import Details from "../details/Details";
+import Pokedex from "../home/pokedex.png";
 
 function Shell() {
   const match = useRouteMatch();
@@ -19,7 +20,9 @@ function Shell() {
   return (
     <div className="shell">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link to="/" className="navbar-brand">Pokédex</Link>
+        <Link to="/" className="navbar-brand">
+          <img src={Pokedex} className="pokedex-navbar" alt="Pokédex"/>
+        </Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
