@@ -1,0 +1,11 @@
+.forms-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 2rem;
+}
+
+.poke-card {
+    width: 18rem;
+    margin: 1rem;
+}
