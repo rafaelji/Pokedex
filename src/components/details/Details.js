@@ -4,6 +4,7 @@ import './Details.css';
 import { useParams } from "react-router-dom";
 import GetPokemonService from "../../services/GetPokemonService";
 import AbilityList from "./ability-list/AbilityList";
+import Profile from "./profile/Profile";
 
 function Details() {
   const { id } = useParams();
@@ -24,20 +25,7 @@ function Details() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-10 offset-1">
-              <img src={`${process.env.PUBLIC_URL}/sprites/${id}.png`} className="card-img-top col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4" alt="pokemon image" />
-              <h1>{pokemon && pokemon.name ? pokemon.name : 'Loading...'}</h1>
-              <table className="table col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
-                <tbody>
-                  <tr>
-                    <td>Weight</td>
-                    <td className="text-right">{pokemon.weight}</td>
-                  </tr>
-                  <tr>
-                    <td>Height</td>
-                    <td className="text-right">{pokemon.height}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <Profile pokemon={pokemon} id={id} />
               <AbilityList pokemon={pokemon} />
             </div>
           </div>
