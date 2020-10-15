@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './List.css';
 
 import PokemonListService from "../../services/PokemonListService";
-import PokeCard from "./details/Details";
+import PokeCard from "./pokecard/Pokecard";
 
 function List() {
   const [pokemonList, setPokemonList] = useState([]);
