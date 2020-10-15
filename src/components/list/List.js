@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './List.css';
 
+import { Link } from "react-router-dom";
+
 import PokemonListService from "../../services/PokemonListService";
 
 function List() {
@@ -9,7 +11,7 @@ function List() {
   async function getAllPokemons() {
     try {
       const result = await PokemonListService.listAll();
-      setPokemonList(result);
+      setPokemonList(result.results);
     } catch (error) {
       console.log(error);
     }
@@ -31,12 +33,9 @@ function List() {
                   pokemonList.length > 0 && pokemonList.map((pokemon, key) => {
                     return (
                       <div className="card" key={key}>
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                          <h5 className="card-title">{pokemon.name}</h5>
-                          <p className="card-text">Some quick example text to build on the card title and make up
-                            the bulk of the card's content.</p>
-                          <a href="#" className="btn btn-primary">Go somewhere</a>
+                        <img src={`${process.env.PUBLIC_URL}/sprites/${key + 1}.png`} className="card-img-top" alt="..." />
+                        <div className="card-body text-center">
+                          <Link to="/" className="btn btn-primary w-100">{pokemon.name}</Link>
                         </div>
                       </div>
                     );
