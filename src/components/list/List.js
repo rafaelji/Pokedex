@@ -7,19 +7,48 @@ import PokemonListService from "../../services/PokemonListService";
 
 function List() {
   const [pokemonList, setPokemonList] = useState([]);
+  const [isBottom, setIsBottom] = useState(false);
+  const [firstTime, setFirstTime] = useState(true);
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function getAllPokemons() {
-    try {
-      const result = await PokemonListService.listAll();
-      setPokemonList(result.results);
-    } catch (error) {
-      console.log(error);
+  function handleScroll() {
+    const scrollTop = (document.documentElement
+      && document.documentElement.scrollTop)
+      || document.body.scrollTop;
+
+    const scrollHeight = (document.documentElement
+      && document.documentElement.scrollHeight)
+      || document.body.scrollHeight;
+
+    if (scrollTop + window.innerHeight + 50 >= scrollHeight) {
+      setIsBottom(true);
     }
   }
 
   useEffect(() => {
-    getAllPokemons();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    async function getAllPokemons() {
+      try {
+        setIsLoading(true);
+        const data = await PokemonListService.listAll(offset);
+        setPokemonList(prevState => prevState.concat(data.results));
+        setOffset(offset + 20);
+        setIsBottom(false);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if ((isBottom || firstTime) && !isLoading) {
+      getAllPokemons(offset);
+    }
+  }, [isBottom, firstTime]);
 
   return (
     <>
