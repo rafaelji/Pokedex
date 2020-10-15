@@ -11,8 +11,3 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-
-.card {
-    width: 18rem;
-    margin: 1rem;
-}
